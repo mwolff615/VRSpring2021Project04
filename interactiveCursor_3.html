@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A Simple Cursor</title>
+ 
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+ 
+    <script>
+     AFRAME.registerComponent('handle-events', {
+    schema: {
+      color: {default: 'red'}
+    },
+
+    init: function () {
+      var data = this.data;
+      var el = this.el;  // <a-box>
+      var defaultColor = el.getAttribute('material').color;
+
+      el.addEventListener('mouseenter', function () {
+    var tmp = document.querySelector('#top');
+        el.setAttribute('color', data.color);
+    if(tmp.object3D == el.object3D){
+		el.object3D.rotation.y += 45;
+     }
+   if(el.object3D.name.equals('top')){
+		el.object3D.rotation.x += 45;
+     }
+	
+
+
+      });
+
+      el.addEventListener('mouseleave', function () {
+        el.setAttribute('color', defaultColor);
+          el.object3D.scale.x = 1;
+           el.object3D.scale.y = 1;
+          el.object3D.scale.z = 1;
+      });
+
+ 	el.addEventListener('click', function () {
+           console.log(el.object3D.name);
+ 	
+       
+            el.object3D.scale.x += 2;
+           el.object3D.scale.y += 2;
+          el.object3D.scale.z += 2;
+        
+          });
+
+
+    }
+  });
+
+
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      
+   <a-entity id="rig" position="0 2 -1" look-controls camera wasd-controls>
+ 	 <a-entity id="camera" camera="active: true" look-controls>
+		<a-cursor></a-cursor>
+	</a-entity>
+</a-entity>
+ 
+  
+       <a-sky color="#ECECEC"></a-sky>
+       <a-plane color="gray" rotation="-90 0 0" width="20" height="20"></a-plane>
+
+
+
+<a-box color="blue" position="-4 0.5 -4" handle-events></a-box>
+<a-box color="blue" position="-4 2.5 -4" handle-events></a-box>
+<a-box color="blue" id="top" position="-4 4.5 -4" handle-events></a-box>
+      
+  <a-box color="blue" position="-2 0.5 -4" handle-events></a-box>
+  <a-box color="blue" position="0 0.5 -4" handle-events></a-box>
+<a-box color="blue" position="2 0.5 -4" handle-events></a-box>
+<a-box color="blue" position="4 0.5 -4" handle-events></a-box>
+
+ <a-box color="blue" position="-2 2.5 -4" handle-events></a-box>
+  <a-box color="blue" position="0 2.5 -4" handle-events></a-box>
+<a-box color="blue" position="2 2.5 -4" handle-events></a-box>
+<a-box color="blue" position="4 2.5 -4" handle-events></a-box>
+
+ <a-box color="blue" name="top" position="-2 4.5 -4" handle-events></a-box>
+  <a-box color="blue" name="top"  position="0 4.5 -4" handle-events></a-box>
+<a-box color="blue" name="top"  position="2 4.5 -4" handle-events></a-box>
+<a-box color="blue"  name="top"  position="4 4.5 -4" handle-events></a-box>
+
+    </a-scene>
+  </body>
+</html>
